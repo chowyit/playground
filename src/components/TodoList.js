@@ -53,7 +53,6 @@ function TodoList() {
         <h1>What's the plan for today?</h1>
         <TodoForm/>
         <Todo todos={todos} />
-        {/* <Todo todos={todos} completeTodo={completeTodo} removeTodo={removeTodo} editTodo={editTodo}/> */}
         {todos.length > 0 ? (<ClearAll />): '' }
         
     </div>

@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useRef} from 'react'
 import {useDispatch} from 'react-redux';
-import {addTodos} from '../redux/reducer';
+import {addTodos, updateTodo} from '../redux/reducer';
 
 function TodoForm(props) {
  
@@ -15,18 +15,28 @@ function TodoForm(props) {
   const handleChange = e => {
       setInput(e.target.value);
   }
-  const handleSubmit = e => {
+  const handleSubmitAdd = e => {
     e.preventDefault();
-    dispatch(addTodos({    
-        text: input,
-    })) 
+    dispatch(
+        addTodos({    
+            text: input,
+        })) 
     setInput('');
-    console.log(e);
   }
-
+ 
+//   const handleSubmitUpdate = e => {
+//       e.preventDefault();
+//       dispatch(
+//           updateTodo({
+//               id: props.edit.id,
+//               text: input
+//           })
+//       )
+//       props.edit.id = null;
+//   }
 
   return (
-    <form className="todo-form" onSubmit={handleSubmit}>
+    <form className="todo-form" onSubmit={handleSubmitAdd}>
         {props.edit ? (
         <>
         <input 
@@ -38,7 +48,7 @@ function TodoForm(props) {
             onChange={handleChange}
             ref={inputRef}
             />
-        <button className="todo-button edit" type="submit" onClick={() => {props.edit.id = null}}>
+        <button className="todo-button edit" type="submit" >
             Update
         </button>
         </>
