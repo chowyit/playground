@@ -1,9 +1,12 @@
 import React, {useState, useEffect, useRef} from 'react'
+import {useDispatch} from 'react-redux';
+import {addTodos} from '../redux/reducer';
 
 function TodoForm(props) {
  
   const [input, setInput] = useState(props.edit ? props.edit.value : '')
   const inputRef = useRef(null)
+  const dispatch = useDispatch();
   
   useEffect(() => {
       inputRef.current.focus()
@@ -13,14 +16,14 @@ function TodoForm(props) {
       setInput(e.target.value);
   }
   const handleSubmit = e => {
-      e.preventDefault();
-
-      props.onSubmit({
-        id: Math.floor(Math.random() * 100000),
-        text: input
-      });
-      setInput('');
+    e.preventDefault();
+    dispatch(addTodos({    
+        text: input,
+    })) 
+    setInput('');
+    console.log(e);
   }
+
 
   return (
     <form className="todo-form" onSubmit={handleSubmit}>
@@ -35,7 +38,7 @@ function TodoForm(props) {
             onChange={handleChange}
             ref={inputRef}
             />
-        <button className="todo-button edit" type="submit">
+        <button className="todo-button edit" type="submit" onClick={() => {props.edit.id = null}}>
             Update
         </button>
         </>
